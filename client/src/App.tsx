@@ -25,6 +25,18 @@ function PageTransition({ children }: { children: React.ReactNode }) {
   return <div className="page-transition" key={location}>{children}</div>;
 }
 
+function SiteSwitcher() {
+  const [location] = useLocation();
+  const isCamp = location === "/campamento";
+  return (
+    <nav className="site-switcher" aria-label="Cambiar ambiente">
+      <a className={!isCamp ? "site-switcher__link site-switcher__link--active" : "site-switcher__link"} href="/">Playa</a>
+      <span className="site-switcher__divider" />
+      <a className={isCamp ? "site-switcher__link site-switcher__link--active" : "site-switcher__link"} href="/campamento">Campamento</a>
+    </nav>
+  );
+}
+
 // NOTE: About Theme
 // - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
 //   to keep consistent foreground/background color across components
@@ -39,6 +51,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <SiteSwitcher />
           <PageTransition><Router /></PageTransition>
         </TooltipProvider>
       </ThemeProvider>
